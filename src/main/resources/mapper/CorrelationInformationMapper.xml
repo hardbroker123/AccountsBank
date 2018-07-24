@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.aurloan.mapper.CorrelationInformationMapper">
+  
+  	
+	
+	<!-- 注册信息 -->
+	<insert id="userRegist" parameterType="UserRegInfo">
+		insert into UserRegInfo(userRegId,loginName,loginPassword,userName,userTel,userCardId) values
+		 (uri_urd_seq.nextval,#{loginName},#{loginPassword},#{userName},#{userTel},#{userCardId})
+	</insert>
+	
+	
+	
+	
+  </mapper>
