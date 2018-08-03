@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</li>
 						<c:if test="${sessionScope.userLogin!=null}">
 							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>${sessionScope.user.nickname }</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>${sessionScope.userLogin.userName }</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
 								<li><a href="#"><i class="lnr lnr-user"></i> <span>我的额度</span></a></li>
 								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>我的信息</span></a></li>
@@ -172,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<nav>
 					<ul class="nav">
 						<li><a href="index.jsp" class="active"><i class="lnr lnr-home"></i> <span>首页</span></a></li>
-						<li><a href="elements.jsp" class=""><i class="lnr lnr-code"></i> <span>个人信息</span></a></li>
+						<li><a href="getPerInfoByRegId.action" class=""><i class="lnr lnr-code"></i> <span>个人信息</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>资产信息</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">

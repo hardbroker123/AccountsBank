@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.ContactInfoMapper">
+
+<!-- 插入数据 -->
+	<insert id="insertContactInfo" parameterType="ContactInfo">
+		insert into ContactInfo(contactId,relationship,contactName,contactPersonCardId,
+						contactPhone,personId)
+		values(CIF_CONTACTID_SEQ.nextval,#{relationship},#{contactName},#{contactPersonCardId},
+			   #{contactPhone},#{personId})
+	</insert>	
+	
+<!--模糊查询 -->
+	<select id="getContactSearch" parameterType="ContactInfo" resultType="ContactInfo">
+		select * from ContactInfo where 1=1
+			<if test="contactName!= '' ">
+			  	 and contactName like '%${contactName}%'
+			</if>
+			<if test="contactPersonCardId!= '' ">
+				 and contactPersonCardId like '%${contactPersonCardId}%'
+			</if>
+			<if test="contactPhone!= '' ">
+				 and contactPhone like '%${contactPhone}%'
+			</if>
+	</select>
+	
+	<!-- 查询所有信息json -->
+	<select id="getContactJson" resultType="ContactInfo">
+			select * from ContactInfo 
+	</select>
+	
+	<!--根据id查询  -->
+	<select id="getContactJsonById" parameterType="int" resultType="ContactInfo" >
+		select * from ContactInfo 
+		where contactId=#{contactId}
+	</select>
+	
+	<!-- 更新数据 -->
+	<update id="updateContactJson" parameterType="ContactInfo">
+		update ContactInfo set relationship=#{relationship},
+		contactName=#{contactName},
+		contactPersonCardId=#{contactPersonCardId},
+		contactPhone=#{contactPhone}
+		where contactId=#{contactId}
+	</update>
+	
+	<!-- 删除数据  -->
+	<delete id="deleteContactJson" parameterType="int">
+		delete ContactInfo 
+		where contactId=#{contactId}
+	</delete>
+	
+</mapper>

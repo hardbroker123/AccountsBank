@@ -5,7 +5,7 @@ import com.aurloan.pojo.UserRegInfo;
 
 /**
  * @author Administrator
- *	用户注册信息
+ *	用户基本/注册信息
  */
 public interface UserRegInfoMapper {
 	/**
@@ -30,4 +30,8 @@ public interface UserRegInfoMapper {
 	public  int queryUserTel(String userTel);
 	
 	
+	/**
+	 * 根据用户名查询所有信息
+	 */
+	public  int queryloginName(String loginName);
 }

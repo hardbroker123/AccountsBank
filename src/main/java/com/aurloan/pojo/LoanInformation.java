@@ -1,14 +1,17 @@
 package com.aurloan.pojo;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
-public class LoanInformation {
+import java.sql.Timestamp;
+
+
+public class LoanInformation extends LoanInformationStatus {
 	//贷款信息
 	private Integer appliNumber;//申请编号
 	private Integer personId;//申请人id
 	private String personName;//申请人姓名
-	private Integer proName;//产品名称id
-	private Integer proType;//产品类型id
+	private String proName;//产品名称id
+	private String proType;//产品类型id
 	private Integer appliAmount;//申请金额
 	private Integer approAmount;//审批金额
 	private Double anIntereRate;//年利率
@@ -17,168 +20,232 @@ public class LoanInformation {
 	private Integer singleLoanCycle;//单笔贷款周期
 	private String interestRate;//计息方式
 	private String repayMethod;//还款方式
-	private Date appTime;//审批通过时间
-	private Integer LoanInformationStatus;//贷款信息状态
+	private Timestamp appTime;//审批通过时间
+	private Integer loanInformationStatusId;//贷款信息状态
 
-	public LoanInformation() {
-	}
 
-	public LoanInformation(Integer appliNumber, Integer personId, String personName, Integer proName, Integer proType, Integer appliAmount, Integer approAmount, Double anIntereRate, Double fineInTerestRate, String periodValidity, Integer singleLoanCycle, String interestRate, String repayMethod, Date appTime, Integer loanInformationStatus) {
-		this.appliNumber = appliNumber;
-		this.personId = personId;
-		this.personName = personName;
-		this.proName = proName;
-		this.proType = proType;
-		this.appliAmount = appliAmount;
-		this.approAmount = approAmount;
-		this.anIntereRate = anIntereRate;
-		this.fineInTerestRate = fineInTerestRate;
-		this.periodValidity = periodValidity;
-		this.singleLoanCycle = singleLoanCycle;
-		this.interestRate = interestRate;
-		this.repayMethod = repayMethod;
-		this.appTime = appTime;
-		LoanInformationStatus = loanInformationStatus;
-	}
+    @Override
+    public String getStatusName() {
+        return super.getStatusName();
+    }
 
-	public Integer getAppliNumber() {
-		return appliNumber;
-	}
+    @Override
+    public void setStatusName(String statusName) {
+        super.setStatusName(statusName);
+    }
 
-	public void setAppliNumber(Integer appliNumber) {
-		this.appliNumber = appliNumber;
-	}
+    public LoanInformation(Integer loanInformationStatusId, String statusName) {
+        super(loanInformationStatusId, statusName);
+    }
 
-	public Integer getPersonId() {
-		return personId;
-	}
+    private LoanInformationStatus loanInformationStatus;
 
-	public void setPersonId(Integer personId) {
-		this.personId = personId;
-	}
+    public LoanInformation(Integer appliNumber, Integer personId, String personName, String proName, String proType, Integer appliAmount, Integer approAmount, Double anIntereRate, Double fineInTerestRate, String periodValidity, Integer singleLoanCycle, String interestRate, String repayMethod, Timestamp appTime, Integer loanInformationStatusId, LoanInformationStatus loanInformationStatus) {
+        this.appliNumber = appliNumber;
+        this.personId = personId;
+        this.personName = personName;
+        this.proName = proName;
+        this.proType = proType;
+        this.appliAmount = appliAmount;
+        this.approAmount = approAmount;
+        this.anIntereRate = anIntereRate;
+        this.fineInTerestRate = fineInTerestRate;
+        this.periodValidity = periodValidity;
+        this.singleLoanCycle = singleLoanCycle;
+        this.interestRate = interestRate;
+        this.repayMethod = repayMethod;
+        this.appTime = appTime;
+        this.loanInformationStatusId = loanInformationStatusId;
+        this.loanInformationStatus = loanInformationStatus;
+    }
 
-	public String getPersonName() {
-		return personName;
-	}
+    @Override
+    public String toString() {
+        return "LoanInformation{" +
+                "appliNumber=" + appliNumber +
+                ", personId=" + personId +
+                ", personName='" + personName + '\'' +
+                ", proName='" + proName + '\'' +
+                ", proType='" + proType + '\'' +
+                ", appliAmount=" + appliAmount +
+                ", approAmount=" + approAmount +
+                ", anIntereRate=" + anIntereRate +
+                ", fineInTerestRate=" + fineInTerestRate +
+                ", periodValidity='" + periodValidity + '\'' +
+                ", singleLoanCycle=" + singleLoanCycle +
+                ", interestRate='" + interestRate + '\'' +
+                ", repayMethod='" + repayMethod + '\'' +
+                ", appTime=" + appTime +
+                ", loanInformationStatusId=" + loanInformationStatusId +
+                ", loanInformationStatus=" + loanInformationStatus +
+                '}';
+    }
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
-	}
+    public LoanInformationStatus getLoanInformationStatus() {
+        return loanInformationStatus;
+    }
 
-	public Integer getProName() {
-		return proName;
-	}
+    public void setLoanInformationStatus(LoanInformationStatus loanInformationStatus) {
+        this.loanInformationStatus = loanInformationStatus;
+    }
 
-	public void setProName(Integer proName) {
-		this.proName = proName;
-	}
+    public Integer getAppliNumber() {
+        return appliNumber;
+    }
 
-	public Integer getProType() {
-		return proType;
-	}
+    public void setAppliNumber(Integer appliNumber) {
+        this.appliNumber = appliNumber;
+    }
 
-	public void setProType(Integer proType) {
-		this.proType = proType;
-	}
+    public Integer getPersonId() {
+        return personId;
+    }
 
-	public Integer getAppliAmount() {
-		return appliAmount;
-	}
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
 
-	public void setAppliAmount(Integer appliAmount) {
-		this.appliAmount = appliAmount;
-	}
+    public String getPersonName() {
+        return personName;
+    }
 
-	public Integer getApproAmount() {
-		return approAmount;
-	}
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
 
-	public void setApproAmount(Integer approAmount) {
-		this.approAmount = approAmount;
-	}
+    public String getProName() {
+        return proName;
+    }
 
-	public Double getAnIntereRate() {
-		return anIntereRate;
-	}
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
 
-	public void setAnIntereRate(Double anIntereRate) {
-		this.anIntereRate = anIntereRate;
-	}
+    public String getProType() {
+        return proType;
+    }
 
-	public Double getFineInTerestRate() {
-		return fineInTerestRate;
-	}
+    public void setProType(String proType) {
+        this.proType = proType;
+    }
 
-	public void setFineInTerestRate(Double fineInTerestRate) {
-		this.fineInTerestRate = fineInTerestRate;
-	}
+    public Integer getAppliAmount() {
+        return appliAmount;
+    }
 
-	public String getPeriodValidity() {
-		return periodValidity;
-	}
+    public void setAppliAmount(Integer appliAmount) {
+        this.appliAmount = appliAmount;
+    }
 
-	public void setPeriodValidity(String periodValidity) {
-		this.periodValidity = periodValidity;
-	}
+    public Integer getApproAmount() {
+        return approAmount;
+    }
 
-	public Integer getSingleLoanCycle() {
-		return singleLoanCycle;
-	}
+    public void setApproAmount(Integer approAmount) {
+        this.approAmount = approAmount;
+    }
 
-	public void setSingleLoanCycle(Integer singleLoanCycle) {
-		this.singleLoanCycle = singleLoanCycle;
-	}
+    public Double getAnIntereRate() {
+        return anIntereRate;
+    }
 
-	public String getInterestRate() {
-		return interestRate;
-	}
+    public void setAnIntereRate(Double anIntereRate) {
+        this.anIntereRate = anIntereRate;
+    }
 
-	public void setInterestRate(String interestRate) {
-		this.interestRate = interestRate;
-	}
+    public Double getFineInTerestRate() {
+        return fineInTerestRate;
+    }
 
-	public String getRepayMethod() {
-		return repayMethod;
-	}
+    public void setFineInTerestRate(Double fineInTerestRate) {
+        this.fineInTerestRate = fineInTerestRate;
+    }
 
-	public void setRepayMethod(String repayMethod) {
-		this.repayMethod = repayMethod;
-	}
+    public String getPeriodValidity() {
+        return periodValidity;
+    }
 
-	public Date getAppTime() {
-		return appTime;
-	}
+    public void setPeriodValidity(String periodValidity) {
+        this.periodValidity = periodValidity;
+    }
 
-	public void setAppTime(Date appTime) {
-		this.appTime = appTime;
-	}
+    public Integer getSingleLoanCycle() {
+        return singleLoanCycle;
+    }
 
-	public Integer getLoanInformationStatus() {
-		return LoanInformationStatus;
-	}
+    public void setSingleLoanCycle(Integer singleLoanCycle) {
+        this.singleLoanCycle = singleLoanCycle;
+    }
 
-	public void setLoanInformationStatus(Integer loanInformationStatus) {
-		LoanInformationStatus = loanInformationStatus;
-	}
+    public String getInterestRate() {
+        return interestRate;
+    }
 
-	@Override
-	public String toString() {
-		return "LoanInformation{" +
-				"appliNumber=" + appliNumber +
-				", personId=" + personId +
-				", personName='" + personName + '\'' +
-				", proName=" + proName +
-				", proType=" + proType +
-				", appliAmount=" + appliAmount +
-				", approAmount=" + approAmount +
-				", anIntereRate=" + anIntereRate +
-				", fineInTerestRate=" + fineInTerestRate +
-				", periodValidity='" + periodValidity + '\'' +
-				", singleLoanCycle=" + singleLoanCycle +
-				", interestRate='" + interestRate + '\'' +
-				", repayMethod='" + repayMethod + '\'' +
-				", appTime=" + appTime +
-				", LoanInformationStatus=" + LoanInformationStatus +
-				'}';
-	}
+    public void setInterestRate(String interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    public String getRepayMethod() {
+        return repayMethod;
+    }
+
+    public void setRepayMethod(String repayMethod) {
+        this.repayMethod = repayMethod;
+    }
+
+    public Timestamp getAppTime() {
+        return appTime;
+    }
+
+    public void setAppTime(Timestamp appTime) {
+        this.appTime = appTime;
+    }
+
+    public Integer getLoanInformationStatusId() {
+        return loanInformationStatusId;
+    }
+
+    public void setLoanInformationStatusId(Integer loanInformationStatusId) {
+        this.loanInformationStatusId = loanInformationStatusId;
+    }
+
+    public LoanInformation(Integer personId, String personName, String proName, String proType, Integer appliAmount, Integer approAmount, Double anIntereRate, Double fineInTerestRate, String periodValidity, Integer singleLoanCycle, String interestRate, String repayMethod, Timestamp appTime, Integer loanInformationStatusId) {
+        this.personId = personId;
+        this.personName = personName;
+        this.proName = proName;
+        this.proType = proType;
+        this.appliAmount = appliAmount;
+        this.approAmount = approAmount;
+        this.anIntereRate = anIntereRate;
+        this.fineInTerestRate = fineInTerestRate;
+        this.periodValidity = periodValidity;
+        this.singleLoanCycle = singleLoanCycle;
+        this.interestRate = interestRate;
+        this.repayMethod = repayMethod;
+        this.appTime = appTime;
+        this.loanInformationStatusId = loanInformationStatusId;
+    }
+
+    public LoanInformation(Integer appliNumber, Integer personId, String personName, String proName, String proType, Integer appliAmount, Integer approAmount, Double anIntereRate, Double fineInTerestRate, String periodValidity, Integer singleLoanCycle, String interestRate, String repayMethod, Timestamp appTime, Integer loanInformationStatusId) {
+        this.appliNumber = appliNumber;
+        this.personId = personId;
+        this.personName = personName;
+        this.proName = proName;
+        this.proType = proType;
+        this.appliAmount = appliAmount;
+        this.approAmount = approAmount;
+        this.anIntereRate = anIntereRate;
+        this.fineInTerestRate = fineInTerestRate;
+        this.periodValidity = periodValidity;
+        this.singleLoanCycle = singleLoanCycle;
+        this.interestRate = interestRate;
+        this.repayMethod = repayMethod;
+        this.appTime = appTime;
+        this.loanInformationStatusId = loanInformationStatusId;
+    }
+
+    public LoanInformation() {
+
+    }
 }
+

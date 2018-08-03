@@ -1,10 +1,12 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/java/com/aurloan/pojo=gbk
 encoding//src/main/java/com/aurloan/pojo/CarInfo.java=gbk
 encoding//src/main/java/com/aurloan/pojo/CreditInvest.java=gbk
+encoding//src/main/java/com/aurloan/pojo/Estate.java=UTF-8
+encoding//src/main/java/com/aurloan/pojo/PerInfo.java=utf-8
 encoding//src/main/java/com/aurloan/pojo/RiskInfo.java=gbk
 encoding//src/main/java/com/aurloan/pojo/UserAuthInfo.java=gbk
+encoding//src/main/java/com/aurloan/util/MD5Utils.java=utf-8
 encoding//src/main/resources=UTF-8
 encoding//src/test/java=UTF-8
 encoding//src/test/resources=UTF-8

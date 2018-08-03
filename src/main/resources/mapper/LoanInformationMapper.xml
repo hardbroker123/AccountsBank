@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.LoanInformationMapper">
+	<!--根据用户id和状态查询一条贷款信息-->
+	<select id="selectOneLoanInfoByPerIdAndState" parameterType="loanInformation" resultType="loanInformation">
+		select * from loanInformation where personId=#{personId} and loanInformationStatusId=#{loanInformationStatusId}
+	</select>
+
+	<!--根据贷款信息id查询一条贷款信息-->
+	<select id="getOneLoanInfoById" parameterType="int" resultType="loanInformation">
+		select * from loanInformation where appliNumber=#{appliNumber}
+	</select>
+
+	<!--根据贷款编号查询-->
+	<select id="selectOneLoanInfoByLoanId" parameterType="loanInformation" resultType="loanInformation">
+		select * from loanInformation where appliNumber=#{appliNumber}
+	</select>
+
+	<!--根据用户id查看所有贷款信息-->
+	<select id="getAllLoanInfoByPersonId" parameterType="loanInfoVo" resultType="loanInfoVo">
+		select loInfo.*,t.creditCardNumbers,t.repaymentDate from (select lo.*,los.statusName from LOANINFORMATION lo,LOANINFORMATIONSTATUS los where
+		lo.LOANINFORMATIONSTATUSID=los.LOANINFORMATIONSTATUSID and lo.personId=#{personId} and
+		lo.LOANINFORMATIONSTATUSID between 1 and 7 order by lo.LOANINFORMATIONSTATUSID asc) loInfo
+        left join THELOANCONTRACT t on loInfo.appliNumber=t.appliNumber
+
+	</select>
+
+	<!--<resultMap type="LoanInformation" id="loanInfoAndLosMap">-->
+		<!--&lt;!&ndash;-->
+		<!--column:查询语句中的列名-->
+		<!--property：类中的属性名-->
+		  <!--&ndash;&gt;-->
+		<!--<id column="loanInformationStatusId" property="loanInformationStatusId"/>-->
+		<!--<result column="appliNumber" property="appliNumber"/>-->
+		<!--<result column="personId" property="personId"/>-->
+		<!--<result column="personName" property="personName"/>-->
+		<!--<result column="proName" property="proName"/>-->
+		<!--<result column="proType" property="proType"/>-->
+		<!--<result column="appliAmount" property="appliAmount"/>-->
+		<!--<result column="anIntereRate" property="anIntereRate"/>-->
+		<!--<result column="fineInTerestRate" property="fineInTerestRate"/>-->
+		<!--<result column="periodValidity" property="periodValidity"/>-->
+		<!--<result column="singleLoanCycle" property="singleLoanCycle"/>-->
+		<!--<result column="interestRate" property="interestRate"/>-->
+		<!--<result column="repayMethod" property="repayMethod"/>-->
+		<!--<result column="appTime" property="appTime"/>-->
+		<!--<result column="loanInformationStatusId" property="loanInformationStatusId"/>-->
+		<!--<collection property="loanInformationStatus" ofType="LoanInformationStatus">-->
+			<!--<id column="loanInformationStatusId" property="loanInformationStatusId"/>-->
+			<!--<result column="statusName" property="statusName"/>-->
+		<!--</collection>-->
+
+
+	<!--</resultMap>-->
+	<!--根据贷款编号更新-->
+	<update id="updateOneLoanInfo" parameterType="loanInformation">
+		update loanInformation set
+		personId=#{personId},
+		personName=#{personName},
+		proName=#{proName},
+		proType=#{proType},
+		appliAmount=#{appliAmount},
+		approAmount=#{approAmount},
+		anIntereRate=#{anIntereRate},
+		fineInTerestRate=#{fineInTerestRate},
+		periodValidity=#{periodValidity},
+		singleLoanCycle=#{singleLoanCycle},
+		interestRate=#{interestRate},
+		repayMethod=#{repayMethod},
+		loanInformationStatusId=#{loanInformationStatusId}
+		where
+		appliNumber=#{appliNumber}
+	</update>
+
+
+	<!-- 根据用户id修改贷款状态 -->
+	<update id="updateLoanStateByApplinum" parameterType="int">
+		update LoanInformation set LoanInformationStatusId=5
+			where AppliNumber=#{appliNumber}
+	</update>
+
+
+
+	<!--添加一条贷款信息,不包括审批时间-->
+	<insert id="insertOneLoanInfo" parameterType="loanInformation">
+		insert into loanInformation(APPLINUMBER,PERSONID,PERSONNAME,PRONAME,PROTYPE,APPLIAMOUNT,APPROAMOUNT,ANINTERERATE,FINEINTERESTRATE,PERIODVALIDITY,SINGLELOANCYCLE,INTERESTRATE,REPAYMETHOD,LOANINFORMATIONSTATUSID) values (LIF_APPNUMBER_SEQ.nextval,#{personId},
+		#{personName},#{proName},#{proType},#{appliAmount},#{approAmount},#{anIntereRate},#{fineInTerestRate},
+		#{periodValidity},#{singleLoanCycle},#{interestRate},#{repayMethod},#{loanInformationStatusId})
+	</insert>
+
+	<!--根据贷款信息id删除一条贷款信息-->
+	<delete id="deleteOneLoanInfoById" parameterType="int">
+		delete from loanInformation where appliNumber=#{appliNumber}
+	</delete>
+	
+</mapper>

@@ -52,6 +52,11 @@ public class UserAuthInfo {
 		this.personId = personId;
 		this.authState = authState;
 	}
+	public UserAuthInfo(String account, String authState) {
+		super();
+		this.account = account;
+		this.authState = authState;
+	}
 	
 	
 }

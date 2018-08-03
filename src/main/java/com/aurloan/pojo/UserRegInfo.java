@@ -6,7 +6,7 @@ public class UserRegInfo {
 	private String userName;//用户姓名
 	private String userCardId;//用户身份证号
 	private String userTel;//用户电话
-	private String loginName;//登陆账户
+	private String loginName;//登陆账户 (真实姓名)
 	private String loginPassword;//登陆密码
 	public Integer getUserRegId() {
 		return userRegId;

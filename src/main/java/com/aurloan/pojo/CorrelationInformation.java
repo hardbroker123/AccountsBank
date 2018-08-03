@@ -1,7 +1,7 @@
 package com.aurloan.pojo;
 
 //关联表信息
-public class CorrelationInformatin {
+public class CorrelationInformation {
     private Integer informationId;//信息id编号
     private Integer personId;//拥有人id编号
     private String qqNumber;//qq号
@@ -40,31 +40,41 @@ public class CorrelationInformatin {
         this.weChat = weChat;
     }
 
-    public CorrelationInformatin() {
+    public CorrelationInformation(Integer personId, String qqNumber,
+    		String weChat) {
+    	super();
+    	this.personId = personId;
+    	this.qqNumber = qqNumber;
+    	this.weChat = weChat;
     }
+	public CorrelationInformation(Integer informationId, Integer personId,
+			String qqNumber, String weChat) {
+		super();
+		this.informationId = informationId;
+		this.personId = personId;
+		this.qqNumber = qqNumber;
+		this.weChat = weChat;
+	}
 
-    public CorrelationInformatin(Integer informationId, Integer personId, String qqNumber, String weChat) {
-        this.informationId = informationId;
-        this.personId = personId;
-        this.qqNumber = qqNumber;
-        this.weChat = weChat;
-    }
+	public CorrelationInformation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    public String toString() {
-        return "CorrelationInformatin{" +
-                "informationId=" + informationId +
-                ", personId=" + personId +
-                ", qqNumber='" + qqNumber + '\'' +
-                ", weChat='" + weChat + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "CorrelationInformation [informationId=" + informationId
+				+ ", personId=" + personId + ", qqNumber=" + qqNumber
+				+ ", weChat=" + weChat + "]";
+	}
 
-	public CorrelationInformatin(String qqNumber, String weChat) {
+	public CorrelationInformation(String qqNumber, String weChat) {
 		super();
 		this.qqNumber = qqNumber;
 		this.weChat = weChat;
 	}
+
+
     
     
 }

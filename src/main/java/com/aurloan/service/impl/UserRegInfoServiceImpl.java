@@ -7,6 +7,10 @@ import com.aurloan.mapper.UserRegInfoMapper;
 import com.aurloan.pojo.UserRegInfo;
 import com.aurloan.service.UserRegInfoService;
 
+/**
+ * @author Administrator
+ *用户注册信息
+ */
 @Service
 public class UserRegInfoServiceImpl implements UserRegInfoService{
 	@Autowired
@@ -17,7 +21,9 @@ public class UserRegInfoServiceImpl implements UserRegInfoService{
 		UserRegInfo userLogin = userRegInfoMapper.userLogin(userRegInfo);
 		if (userLogin == null || userLogin.getUserRegId() == null) {
 			return null;
-		} 
+		}
+		//当用户查询到时，补充用户详细信息
+		
 		return userLogin;
 	}
 	
@@ -48,6 +54,10 @@ public class UserRegInfoServiceImpl implements UserRegInfoService{
 		return userRegInfoMapper.queryUserTel(userTel);
 	}
 	
+	@Override
+	public int queryloginName(String loginName) {
+		return userRegInfoMapper.queryloginName(loginName);
+	}
 	
 	
 	
@@ -61,6 +71,9 @@ public class UserRegInfoServiceImpl implements UserRegInfoService{
 	public void setUserRegInfoMapper(UserRegInfoMapper userRegInfoMapper) {
 		this.userRegInfoMapper = userRegInfoMapper;
 	}
+
+
+
 
 
 

@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,50 +27,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
 	<link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
-	<!-- jquery -->
-    <script src="js/jquery-1.8.3-min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script>
-    	$(function(){
+	<style>
+		.corretionInfo>span{
+			font-family:微软雅黑;
+			font-size:9px;
+			color:red;
+		}
+	
+	</style>
+	<!-- Javascript -->
+	<script src="assets/vendor/jquery/jquery.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="assets/vendor/toastr/toastr.min.js"></script>
+	<script src="assets/scripts/klorofil-common.js"></script>
+	<script src="jsp/jquery/jquery-3.2.1.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			/* 校验QQ号 */
 			$("#qqNumber").blur(function(){
-				if($("#qqNumber").val()==""||$("#qqNumber").val()==null){
-					$("#qqNumber").parent().next("span").html("*qq号码输入不能为空！").show();
-					return;
-				}
-				if(!/^[1-9][0-9]{4,}$/.test($("#qqNumber").val())){
-					$("#qqNumber").parent().next("span").html("*qq号码输入错误！").show();
-					return;
+				var reg=/^[0-9]{4,15}$/;	
+				if($("#qqNumber").val()==null|$("#qqNumber").val()==""){
+					$("#qqNumber").parent().next("span").hide();
+				}else if(!reg.test($("#qqNumber").val())){
+					$("#qqNumber").parent().next("span").html("请输入4-15位数字！").show();
 				}else{
 					$("#qqNumber").parent().next("span").hide();
 				}
-			});    	
+			});
+			
+			/* 校验微信号 */
 			$("#weChat").blur(function(){
-				if($("#weChat").val()==""||$("#weChat").val()==null){
-					$("#weChat").parent().next("span").html("*微信号输入不能为空！").show();
-					return;
-				}
-				if(!/^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$/.test($("#weChat").val())){
-					$("#weChat").parent().next("span").html("*微信号输入错误！").show();
-					return;
+				var reg=/^[a-z_\d]{6,20}$/;	
+				if($("#weChat").val()==""|$("#weChat").val()==null){
+					$("#weChat").parent().next("span").hide();
+				}else if(!reg.test($("#weChat").val())){
+					$("#weChat").parent().next("span").html("请输入正确的微信号！").show();
 				}else{
 					$("#weChat").parent().next("span").hide();
 				}
-			}); 
-				/* 表单提交 */
-			$("#registForm").submit(function(){
-				$("input").trigger("blur");
-				if($("#registForm span:visible").size()>1){
+			});
+			
+			/* submit被点击时触发input的blur事件 */
+			$(".corretionInfo").submit(function(){
+				$(".corretionInfo").find("input").trigger("blur");
+				if($(".corretionInfo>span:visible").size()>0){
 					return false;
 				}
-			});   
-				
-    	});
-    </script>
-	<style >
-		.myspan{
-			color:red;
-		}
-	</style>
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -77,8 +84,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div id="wrapper">
 		<!-- NAVBAR -->
 		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand">
-				<a href="index.html"><img src="assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+			<div class="brand" style="padding-bottom:0px;padding-top:0px;width:278px;padding-left:0px;">
+				<a href="first.jsp"><img src="../font/Assets/images/logo222.png" alt="Klorofil Logo" class="img-responsive logo" style="width:400px;padding-left: 20px;padding-top: 25px;"></a>
 			</div>
 			<div class="container-fluid">
 				<div class="navbar-btn">
@@ -86,12 +93,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<form class="navbar-form navbar-left">
 					<div class="input-group">
-						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
-						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+						<input type="text" value="" class="form-control" placeholder="请输入您要查询的内容...">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">搜索</button></span>
 					</div>
 				</form>
 				<div class="navbar-btn navbar-btn-right">
-					<a class="btn btn-success update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
+					<a class="btn btn-success update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>升级到VIP</span></a>
 				</div>
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
@@ -100,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<i class="lnr lnr-alarm"></i>
 								<span class="badge bg-danger">5</span>
 							</a>
+							<!--消息通知-->
 							<ul class="dropdown-menu notifications">
 								<li><a href="#" class="notification-item"><span class="dot bg-warning"></span>System space is almost full</a></li>
 								<li><a href="#" class="notification-item"><span class="dot bg-danger"></span>You have 9 unfinished tasks</a></li>
@@ -110,50 +118,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</ul>
 						</li>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>Help</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="lnr lnr-question-circle"></i> <span>帮助</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="#">Basic Use</a></li>
-								<li><a href="#">Working With Data</a></li>
-								<li><a href="#">Security</a></li>
-								<li><a href="#">Troubleshooting</a></li>
+								<li><a href="#">贷款常识</a></li>
+								<li><a href="#">证券股票</a></li>
+								<li><a href="#">信息安全</a></li>
+								<li><a href="#">我的客服</a></li>
 							</ul>
 						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>Samuel</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								<li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
-								<li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
-								<li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
-								<li><a href="#"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
-							</ul>
+						<c:if test="${sessionScope.userLogin!=null}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>${sessionScope.userLogin.userName }</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="#"><i class="lnr lnr-user"></i> <span>我的额度</span></a></li>
+									<li><a href="#"><i class="lnr lnr-envelope"></i> <span>我的信息</span></a></li>
+									<li><a href="#"><i class="lnr lnr-cog"></i> <span>个人设置</span></a></li>
+									<li><a href="userRemove.action"><i class="lnr lnr-exit"></i> <span>退出登陆</span></a></li>
+								</ul>
+							</li>
+						</c:if>
+						<c:if test="${sessionScope.userLogin==null}">
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span>我的</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+								<ul class="dropdown-menu">
+									<li><a href="page-login.jsp"><i class="lnr lnr-user"></i> <span>登陆</span></a></li>
+									<li><a href="page-regist.jsp"><i class="lnr lnr-envelope"></i> <span>注册</span></a></li>
+								</ul>
+							</li>
+						</c:if>
+
+						<li>
+							<a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="fuckyou" target="_blank"><i class="fa fa-rocket"></i> <span>网络银行</span></a>
 						</li>
-						<!-- <li>
-							<a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
+
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
+		<!-- 左侧 navbar -->
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
 						<li><a href="index.jsp" class=""><i class="lnr lnr-home"></i> <span>首页</span></a></li>
-						<li><a href="elements.jsp" class=""><i class="lnr lnr-code"></i> <span>个人信息</span></a></li>
+						<li><a href="<%=basePath%>jsp/getPerInfoByRegId.action" class=""><i class="lnr lnr-code"></i> <span>个人信息</span></a></li>
 						<li>
 							<a href="#subPages1" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>资产信息</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages1" class="collapse ">
 								<ul class="nav">
-									<li><a href="charts-car.jsp" class="">车产信息</a></li>
-									<li><a href="charts-house.jsp" class="">房产信息</a></li>
+									<li><a href="<%=basePath%>jsp/selectCarInfo.action" class="">车产信息</a></li>
+									<li><a href="<%=basePath%>jsp/selectHouses.action" class="">房产信息</a></li>
 								</ul>
 							</div>
 						</li>
-						<li><a href="charts.jsp" class=""><i class="lnr lnr-code"></i> <span>企业信息</span></a></li>
+						<li><a href="<%=basePath%>jsp/getOneCompanyInfo.action" class=""><i class="lnr lnr-code"></i> <span>企业信息</span></a></li>
 						<li><a href="panels.jsp" class=""><i class="lnr lnr-cog"></i> <span>联系人信息</span></a></li>
-						<li><a href="notifications.jsp" class=""><i class="lnr lnr-alarm"></i> <span>关联信息</span></a></li>
+						<li><a href="notifications.jsp" class="active"><i class="lnr lnr-alarm"></i> <span>关联信息</span></a></li>
 						<li>
 							<a href="#subPages2" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>登出\修改密码</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
 							<div id="subPages2" class="collapse ">
@@ -164,14 +185,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								</ul>
 							</div>
 						</li>
-						<li><a href="tables.html" class=""><i class="lnr lnr-dice"></i> <span>金融证券</span></a></li>
-						<li><a href="typography.html" class=""><i class="lnr lnr-text-format"></i> <span>额度查询</span></a></li>
-						<li><a href="icons.html" class=""><i class="lnr lnr-linearicons"></i> <span>客服反馈</span></a></li>
+						<li><a href="loanTables.jsp" class=""><i class="lnr lnr-dice"></i> <span>贷款查询</span></a></li>
+						<li><a href="loanApply/apply.jsp" class=""><i class="lnr lnr-text-format"></i> <span>贷款申请</span></a></li>
+						<li><a href="icons.jsp" class=""><i class="lnr lnr-linearicons"></i> <span>客服反馈</span></a></li>
 					</ul>
 				</nav>
 			</div>
 		</div>
-		<!-- END LEFT SIDEBAR -->
+		<!-- 左侧narbar 结束 -->
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
@@ -184,25 +205,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<!-- 个人信息表单 -->
 							<div class="panel">
 								<div class="panel-heading">
-									<h3 class="panel-title">关联信息</h3>
+									<h3 class="panel-title">添加/修改关联信息</h3>
 								</div>
 								<div class="panel-body">
-									<form action="" id="registForm">
-									<div class="input-group">
-										<div class="input-group-addon">QQ号码</div>
-										<input class="form-control" placeholder="请输入QQ号码" type="text" id="qqNumber" name="qqNumber">
-									</div>
-									<span class="myspan"></span>
-									<br>
-									<div class="input-group">
-										<div class="input-group-addon">微信账号</div>
-										<input class="form-control" placeholder="请输入微信账号" type="text" id="weChat" name="weChat" >
-									</div>
-									<span class="myspan"></span>
-									<br>
-									<div class="input-group">
-										<button class="btn btn-primary" type="button">提交</button>
-									</div>
+									<form action="insertOrUpdateCorrInfo.action" class="corretionInfo">
+										<div class="input-group">
+											<div class="input-group-addon">QQ号码</div>
+											<input class="form-control" placeholder="请输入QQ号码" type="text"
+												name="qqNumber" id="qqNumber"
+												value="${sessionScope.corrinfo.qqNumber}">
+										</div>
+										<span></span>
+										<br>
+										<div class="input-group">
+											<div class="input-group-addon">微信账号</div>
+											<input class="form-control" placeholder="请输入微信账号" type="text"
+												name="weChat" id="weChat"
+												value="${sessionScope.corrinfo.weChat}" >
+										</div>
+										<span></span>
+										<br>
+										<div class="input-group">
+											<input class="btn btn-primary" type="submit" value="保存" />
+										</div>
 									</form>
 								</div>
 							</div>
@@ -224,7 +249,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- END WRAPPER -->
 	</div>
 	<!-- END WRAPPER -->
-	</div>
+	
 	<!-- 模态框（Modal） -->
 <!-- 修改 -->
 <div id="passDlg" class="modal fade"  tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -269,14 +294,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+</div>
 
 
-	<!-- Javascript -->
-	<script src="assets/vendor/jquery/jquery.min.js"></script>
-	<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-	<script src="assets/vendor/toastr/toastr.min.js"></script>
-	<script src="assets/scripts/klorofil-common.js"></script>
+	
 </body>
 
 </html>

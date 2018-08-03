@@ -1,108 +1,99 @@
 package com.aurloan.controller;
 
-import javax.json.JsonObject;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurloan.pojo.PerInfo;
 import com.aurloan.pojo.UserRegInfo;
+import com.aurloan.service.PerInfoService;
 import com.aurloan.service.UserRegInfoService;
 
 /**
  * @author Administrator
- *用户基本信息Controller
- *依次是：userLogin 		用户登录
- *		userRegist		用户注册
- *		userRemove		用户注销
- *		userPwdUpdate	修改密码
- *		userPwdFind		忘记密码
+ *用户详细信息
  */
-
 @Controller
 @RequestMapping("/jsp")
 public class PerInfoController {
 	
 	@Autowired
+	PerInfoService perInfoService;
+	
+	@Autowired
 	UserRegInfoService userRegInfoService;
 	
-	@RequestMapping("/userLogin")
-	public String userLogin(@RequestParam(value="loginName")String loginName,
-			@RequestParam(value="loginPassword")String loginPassword,
-			HttpSession session){
+	//根据注册id查用户基本信息
+	@RequestMapping("/getPerInfoByRegId")
+	public String getPerInfoByRegId(HttpSession session){
+		UserRegInfo userRegInfo= (UserRegInfo) session.getAttribute("userLogin");
+		PerInfo perInfo=perInfoService.getOnePerInfoByRegId(userRegInfo.getUserRegId());
+		session.setAttribute("PerInfo",perInfo);
+		return "elements";
+	}
+//	插入用户基本信息
+	@RequestMapping("/insertOnePerInfo")
+	public  String insertOnePerInfo(PerInfo PerInfo,HttpSession session){
 		
-		UserRegInfo userlogin = userRegInfoService.userLogin(new UserRegInfo(loginName, loginPassword));
-		if (userlogin != null && userlogin.getUserRegId() !=null) {
-			session.setAttribute("userLogin",userlogin );
-			return "index";
+		//从成功登陆的用户session作用域中获取真实姓名。身份证号。补充到用户基本信息表
+		UserRegInfo userRegInfo = (UserRegInfo) session.getAttribute("userLogin");
+		PerInfo.setPersonName(userRegInfo.getLoginName());
+		/* 身份证号 */
+		String card = userRegInfo.getUserCardId();
+		PerInfo.setPersonCardId(card);
+		
+		 /* --计算年龄-- */
+	  	//添加到表单
+		PerInfo.setPersonAge(Integer.parseInt(String.format("%tY", new Date()))-Integer.parseInt(card.substring(6, 10)));
+		/* --计算性别-- */
+		if(Integer.parseInt(card.substring(16, 17))%2 == 1){
+			PerInfo.setPersonSex("男");
 		}else {
-			return "page-login";
+			PerInfo.setPersonSex("女");
 		}
+		PerInfo.setUserRegId(userRegInfo.getUserRegId());
+		perInfoService.insertOnePerInfo(PerInfo);
+		/*//判断当前用户状态，是否为第一次注册信息
+		 * 
+		if ((PerInfo) session.getAttribute("PerInfo") == null){
+			//执行插入信息操作
+			PerInfo.setUserRegId(userRegInfo.getUserRegId());
+		} else {
+			//执行更新信息操作
+			perInfoService.updateOnePerInfo(PerInfo);
+		}
+		//缓存用户详细信息
+*/		session.setAttribute("PerInfo", PerInfo);
+		return "elements";
+	}
+	
+//	更改用户基本信息
+	@RequestMapping("/updateOnePerInfo")
+	public  String updateOnePerInfo(PerInfo PerInfo,HttpSession session){
+		perInfoService.updateOnePerInfo(PerInfo);
+		return "elements";
+	}
+	
+//	查询用户基本信息
+	@RequestMapping("/getAllPerInfo")
+	public  String getAllPerInfo(PerInfo PerInfo,HttpSession session){
+		return "elements";
+	}
+	
+//	get/set方法
+	public PerInfoService getPerInfoService() {
+		return perInfoService;
 	}
 
-	@RequestMapping("/userRegist")
-	public String userRegist(@RequestParam(value="loginName",defaultValue="zhangsan")String loginName,
-			@RequestParam(value="loginPassword",defaultValue="123")String loginPassword,
-			@RequestParam(value="userCardId",defaultValue="123")String userCardId,
-			@RequestParam(value="userTel",defaultValue="23")String userTel,
-			@RequestParam(value="userName",defaultValue="123")String userName
-			){
-		UserRegInfo uri = new UserRegInfo(userName, userCardId, userTel, loginName, loginPassword);
-		userRegInfoService.userRegist(uri);
-			return "page-login";
+	public void setPerInfoService(PerInfoService perInfoService) {
+		this.perInfoService = perInfoService;
 	}
 	
-	@RequestMapping("/userRemove")
-	public String userRemove(HttpSession session){
-		session.invalidate();
-		return "page-login";
-	}
-	
-	@RequestMapping("/userPwdUpdate")
-	public String userPwdUpdate(UserRegInfo UserRegInfo,HttpSession session){
-		userRegInfoService.updateUserPwd(UserRegInfo);
-		return "page-login";
-	}
-	
-	//请求key value  响应json串
-	@ResponseBody
-	@RequestMapping("/queryUserTel")
-	public int  queryUserTel(String userTel,HttpSession session){
-		return userRegInfoService.queryUserTel(userTel);
-	}
-	
-	
-	@RequestMapping("/updatePwdForget")
-	public  @ResponseBody UserRegInfo updatePwdForget(UserRegInfo UserRegInfo,HttpSession session){
-		userRegInfoService.updateUserPwd(UserRegInfo);
-		return UserRegInfo;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	public UserRegInfoService getUserRegInfoService() {
 		return userRegInfoService;
 	}
@@ -110,24 +101,4 @@ public class PerInfoController {
 	public void setUserRegInfoService(UserRegInfoService userRegInfoService) {
 		this.userRegInfoService = userRegInfoService;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

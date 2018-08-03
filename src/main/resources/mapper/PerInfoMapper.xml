@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.PerInfoMapper">
+	<!--查询所有  -->
+	<select id="getOnePerInfoByRegId" parameterType="int" resultType="perInfo">
+		select * from perInfo where userRegId=#{userRegId}
+	</select>
+	
+	<!--查询用户所有信息  -->
+	<select id="getAllPerInfo" parameterType="string" resultType="PerInfo">
+		select * from perInfo where personCardId=#{personCardId}
+	</select>
+	
+	<!-- 添加用户所有信息 -->
+	<insert id="insertOnePerInfo" parameterType="PerInfo">
+		insert into PerInfo(personId,userRegId,personName,personCardId,personSex,personAge,city,province,district,detailedAddress,
+							registeredResidence,spousalName,spousalCardId,spousalTel,
+							maritalStatus,childrenNumber,
+							educational,housingSituation,housePhone) 
+							values
+							(pif_pi_seq.nextval,#{userRegId},#{personName},#{personCardId},#{personSex},#{personAge},#{city},#{province},#{district},#{detailedAddress},
+							#{registeredResidence},#{spousalName},#{spousalCardId},#{spousalTel},
+							#{maritalStatus},#{childrenNumber},
+							#{educational},#{housingSituation},#{housePhone})
+	</insert>
+	
+	<!-- 修改用户信息 -->
+	<update id="updateOnePerInfo" parameterType="PerInfo">
+	  update PerInfo set
+	    personName=#{personName},
+	 	personAge = #{personAge},
+	 	detailedAddress =#{detailedAddress},
+  		registeredResidence=#{registeredResidence},
+  		educational=#{educational},
+  		housePhone=#{housePhone}
+	 where personCardId=#{personCardId}
+	</update>
+	
+
+</mapper>

@@ -2,6 +2,10 @@ package com.aurloan.service;
 
 import com.aurloan.pojo.UserRegInfo;
 
+/**
+ * @author Administrator
+ *用户注册信息
+ */
 public interface UserRegInfoService {
 	/**
 	 * 根据用户名查询密码
@@ -24,7 +28,10 @@ public interface UserRegInfoService {
 	 */
 	public  int queryUserTel(String userTel);
 	
-	
+	/**
+	 * 根据用户名查询所有信息
+	 */
+	public  int queryloginName(String loginName);
 	
 	
 	

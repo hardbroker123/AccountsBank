@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.CompanyInformationMapper">
+
+	<!-- 查询所有企业信息 -->
+	<select id="getAllCompanyInfo" resultType="CompanyInformation" parameterType="int">
+		select * from CompanyInformation where personId=#{personId}
+	</select>
+	
+	<!-- 修改企业状态(根据用户id) -->
+	<update id="updateComPersonState" parameterType="int" >
+		update CompanyInformation set comPersonState ='0'
+		where personId=#{personId}
+	</update>
+	
+	<!-- 根据用户id查询一条企业信息 -->
+	<select id="getOneCompanyInfo" resultType="CompanyInformation" parameterType="int">
+		select * from CompanyInformation where personId=#{personId} and comPersonState='1'
+	</select>
+	
+	<!-- 插入企业信息 -->
+	<insert id="insertCompanyInfo" parameterType="CompanyInformation">
+		insert into CompanyInformation values(CIF_companyid_seq.NEXTVAL,
+			#{personId},#{companyName},
+  			#{legalRepresentative},
+  			#{registeredCapital},
+  			#{locationOfCompany},
+  			#{unionpayMerchanNumber},
+  			#{taxRegistrationNumber},
+  			#{employedYear},
+  			#{businessYear},
+  			#{employeesNumber},
+  			#{businessLicense},
+  			'1')
+	</insert>
+	<!-- 修改企业信息 -->
+	<update id="updateCompanyInfo" parameterType="CompanyInformation">
+		update CompanyInformation set legalRepresentative=#{legalRepresentative},
+			registeredCapital=#{registeredCapital},
+			locationOfCompany=#{locationOfCompany},
+			unionpayMerchanNumber=#{unionpayMerchanNumber},
+			taxRegistrationNumber=#{taxRegistrationNumber},
+			employedYear=#{employedYear},
+			businessYear=#{businessYear},
+			employeesNumber=#{employeesNumber},
+			businessLicense=#{businessLicense}
+		where personId=#{personId} and companyName=#{companyName}
+			
+	</update>
+	
+	
+</mapper>

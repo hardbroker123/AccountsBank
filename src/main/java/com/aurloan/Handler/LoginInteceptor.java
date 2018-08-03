@@ -1,5 +1,7 @@
 package com.aurloan.Handler;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,22 +35,31 @@ public class LoginInteceptor implements HandlerInterceptor{
 	//当这个方法执行完成，并且允许继续执行，其他的2个方法才有机会执行
 	@Override
 	public boolean preHandle(HttpServletRequest request, 
-			HttpServletResponse response, Object arg2) throws Exception {
+			HttpServletResponse resp,Object arg2) throws Exception {
 		//false：禁止继续执行handler
 		//true：放行，继续执行handler
 		//需要验证访问的资源  是否是公共资源：首页、登录的操作
 		String url=request.getRequestURI();
 		System.out.println(url);
-		if("/PerInfoController".equals(url.substring(url.lastIndexOf("/")))){
+		if("/userLogin.action".equals(url.substring(url.lastIndexOf("/"))) ||
+			"/userRegist.action".equals(url.substring(url.lastIndexOf("/"))) ||
+			"/updatePwdForget.action".equals(url.substring(url.lastIndexOf("/"))) ||
+			"/xxx.action".equals(url.substring(url.lastIndexOf("/"))) ){
 			return true;
 		}else{
 			System.out.println("进行登录信息验证");
 			HttpSession session=request.getSession();
 			Object user=session.getAttribute("userLogin");
+			Object perInfo=session.getAttribute("PerInfo");
 			if(user!=null){
 				return true;
 			}else{
-				response.sendRedirect("page-login.jsp");
+				System.out.println("登录拦截跳转");
+				resp.setContentType("text/html; charset=utf-8");
+				PrintWriter out = resp.getWriter();
+				out.print("<script>alert('请先登录!');window.location.href='page-login.jsp'</script>");
+				//out.print("<script language='javascript'>alert('请重新登录！');window.location.href='page-login.jsp';<script>");
+				//resp.sendRedirect("jsp/page-login.jsp");
 				return false;
 			}
 		}

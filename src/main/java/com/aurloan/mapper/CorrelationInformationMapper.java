@@ -1,16 +1,21 @@
 package com.aurloan.mapper;
 
-import com.aurloan.pojo.CorrelationInformatin;
+import com.aurloan.pojo.CorrelationInformation;
 
-/**
- * @author Administrator
- *  关联信息表
- */
 public interface CorrelationInformationMapper {
 	/**
-	 * @author Administrator
-	 *  注册
+	 * 根据用户id查询关联信息
 	 */
-	public int insertInfo(CorrelationInformatin correlationInformatin); 
+	public CorrelationInformation getAllCorrelationInfo(int personId);
 	
+	/**
+	 * 插入用户关联信息
+	 */
+	public void insertOneCorrInfo(CorrelationInformation corrinfo);
+	
+	/**
+	 * 修改用户关联信息
+	 */
+	public void updateOneCorrInfo(CorrelationInformation corrinfo);
+
 }

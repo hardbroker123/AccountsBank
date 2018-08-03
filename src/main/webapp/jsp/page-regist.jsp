@@ -57,19 +57,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}
 					//检查用户名是否重复
 				$.ajax({
-				url:"user.do?action=checkloginAction&loginName="+$("#loginName").val(),
-				type:"get",
+				url:"queryloginName.action",
+				type:"post",
+				data:{loginName:$("#loginName").val()},
 				async:false,
 				dataTypes:"json",
 				success:function(obj){
-					if(obj.name =$("#loginName").val()){
-					/* alert("请检查账号！"); */
+					if(obj==1){
+						$("#loginName").next("span").html("名称重复").show();
 						return false;
-					}else{
+					}else {
 					    $("#loginName").next("span").hide();
 					}
 				}
 			   });
+			   
 			});
 			
 			$("#userName").blur(function(){

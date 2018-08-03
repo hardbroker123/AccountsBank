@@ -146,41 +146,50 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="panel-body">
 									<div class="input-group">
 										<div class="input-group-addon">实际居住地</div>
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;">
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2">省份</option>
 											<option value="option3">下拉3</option>
 										</select> 
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;" >
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2" selected="selected">省份</option>
 											<option value="option3">下拉3</option>
 										</select> 
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;">
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2" selected="selected">省份</option>
 											<option value="option3">下拉3</option>
-										</select><br />
+										</select>
+										<div style="visibility: none;">
+										<select class="form-control" style="width: auto;">
+											<option>--请选择--</option>
+											<option value="option1">下拉1</option>
+											<option value="option2" selected="selected">省份</option>
+											<option value="option3">下拉3</option>
+										</select>
+										</div>
+										<br />
 									</div>
 									<br>
 									<div class="input-group">
 										<div class="input-group-addon">楼盘名称</div>
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;">
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2">省份</option>
 											<option value="option3">下拉3</option>
 										</select> 
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;">
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2" selected="selected">省份</option>
 											<option value="option3">下拉3</option>
 										</select> 
-										<select class="form-control" style=width:100px>
+										<select class="form-control" style="width: auto;">
 											<option>--请选择--</option>
 											<option value="option1">下拉1</option>
 											<option value="option2" selected="selected">省份</option>
@@ -193,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<input class="form-control" placeholder="请输入房产面积" type="text">
 									</div>
 									<br>
-									<div class="input-group" style=width:240px>
+									<div class="input-group" >
 										<div class="input-group-addon">是否是现居住地</div>
 										<select class="form-control">
 											<option>--请选择--</option>
@@ -203,12 +212,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										</select> 
 										</div>
 										<br>
-									<div class="input-group" style=width:240px>
+									<div class="input-group" >
 										<div class="input-group-addon">是否房屋共有</div>
 										<select class="form-control">
 											<option>--请选择--</option>
-											<option value="option1">下拉1</option>
-											<option value="option3">下拉3</option>
+											<option value="option1">有</option>
+											<option value="option3">无</option>
 										</select> 
 									</div>
 									

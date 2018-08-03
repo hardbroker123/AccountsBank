@@ -2,17 +2,25 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.aurloan.mapper.CorrelationInformationMapper">
-  
-  	
+<mapper namespace="com.aurloan.mapper.CorrelationInformationMapper">
+	<!-- 根据用户id查询所有关联信息 -->
+	<select id="getAllCorrelationInfo" parameterType="int" resultType="CorrelationInformation">
+		select * from CorrelationInformation where personId=#{personId}
+	</select>
 	
-	<!-- 注册信息 -->
-	<insert id="userRegist" parameterType="UserRegInfo">
-		insert into UserRegInfo(userRegId,loginName,loginPassword,userName,userTel,userCardId) values
-		 (uri_urd_seq.nextval,#{loginName},#{loginPassword},#{userName},#{userTel},#{userCardId})
+	<!-- 插入关联信息 -->
+	<insert id="insertOneCorrInfo" parameterType="CorrelationInformation">
+		insert into CorrelationInformation values(CIF_informationId_seq.NEXTVAL,
+			#{personId},
+			#{qqNumber},
+			#{weChat})
 	</insert>
 	
+	<!-- 修改关联信息 -->
+	<update id="updateOneCorrInfo" parameterType="CorrelationInformation">
+		update CorrelationInformation set qqNumber=#{qqNumber},
+			weChat=#{weChat} 
+			where personId=#{personId}
+	</update>
 	
-	
-	
-  </mapper>
+</mapper>

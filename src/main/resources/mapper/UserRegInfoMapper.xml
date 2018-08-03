@@ -22,16 +22,6 @@
 		where userRegId=#{userRegId}
 	</update>
 	
-	<!-- 验证用户名是否可用-->
-	<select id="queryloginName" parameterType="string" resultType="UserRegInfo">
-		select * from UserRegInfo where loginName=#{loginName} 
-	
-	</select>
-	
-	<!-- 根据用户名查询所有信息 -->
-	<select id="userLoginAll"  resultType="UserRegInfo">
-		select * from UserRegInfo where loginName=#{loginName}
-	</select>
 	
 	<!-- 忘记密码 -->
 	<update id="updatePwdForget" parameterType="UserRegInfo">
@@ -39,6 +29,11 @@
 		loginPassword=#{loginPassword}
 		where userTel=#{userTel}
 	</update>
+	
+	<!-- 验证用户名是否可用-->
+	<select id="queryloginName" parameterType="string" resultType="int">
+		select * from UserRegInfo where loginName=#{loginName} 
+	</select>
 	
 	<!--检测电话号是否可用 -->
 	<select id="queryUserTel" parameterType="string" resultType="int">

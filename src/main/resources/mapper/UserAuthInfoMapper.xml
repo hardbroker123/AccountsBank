@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.UserAuthInfoMapper">
+    <!--通过银行卡号查授权信息-->
+    <select id="getUserAuthInfoIdByAccount" parameterType="String" resultType="userAuthInfo">
+        select * from userAuthInfo where account=#{account}
+    </select>
+    <!--通过银行卡号查转账金额-->
+    <select id="checkReAccountByCard" parameterType="String" resultType="double">
+        select transMoney from userAuthInfo where account=#{account}
+    </select>
+    <!--添加-->
+    <insert id="insertOneUserAuthInfo" parameterType="userAuthInfo">
+        insert into userAuthInfo values (USERAUTHINFO_USAUID_SEQ.nextval,#{account},#{transMoney},#{personId},#{authState})
+    </insert>
+    <!--更新-->
+    <update id="updateOneUserAuthInfo" parameterType="userAuthInfo">
+        update userAuthInfo set transMoney=#{transMoney},authState=#{authState},personId=#{personId} where account=#{account}
+    </update>
+    <!--根据账号修改授权状态-->
+    <update id="updateUserAuthStateByAccount" parameterType="userAuthInfo">
+      update userAuthInfo set authState=#{authState} where account=#{account}
+    </update>
+    <!-- 通过用户id查询所有授权银行卡 -->
+    <select id="getAllAccountCards" parameterType="int" resultType="UserAuthInfo" >
+		select * from UserAuthInfo where personid=#{personId} and AUTHSTATE='1'
+	</select>
+
+
+
+
+
+
+</mapper>

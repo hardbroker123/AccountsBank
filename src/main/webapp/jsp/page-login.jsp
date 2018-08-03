@@ -68,8 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="right">
 						<div class="overlay"></div>
 						<div class="content text">
-							<h1 class="heading">XXX小额贷款公司</h1>
-							<p>制作团队</p>
+							<h1 class="heading">极光小额贷款公司</h1>
+							<p>制作团队:张继源&nbsp;<strong>于淼</strong>&nbsp;张继源 &nbsp;张继源</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>

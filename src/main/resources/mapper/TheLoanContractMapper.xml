@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurloan.mapper.TheLoanContractMapper">
+	<!-- 插入一条签约银行卡信息 -->
+	<insert id="insertLoanContractInfo" parameterType="TheLoanContract">
+		insert into TheLoanContract
+  			values(TLC_LoanNumber_seq.nextval,
+  			#{repaymentDate},
+  			#{creditCardNumbers},
+  			#{personId},
+  			#{appliNumber})
+	</insert>
+	
+	<!-- 通过用户id查询签约信息 -->
+	<select id="selectLoanContract" parameterType="int" resultType="TheLoanContract">
+		select * from TheLoanContract where appliNumber=#{appliNumber}
+	</select>
+
+</mapper>
