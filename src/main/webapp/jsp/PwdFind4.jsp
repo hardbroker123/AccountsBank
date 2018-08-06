@@ -17,29 +17,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="bootstrap/js/bootstrap.min.js"></script>
 <script>
 	$(function(){
-		$("#update").click(function(){
+		
 		/*location.href="userPwdUpdate.action?loginPassword="+$("#newPass").val()+"&userRegId="+${sessionScope.userLogin.userRegId};  */
-				 $.ajax({
+				/*  $.ajax({
 					url:"userPwdUpdate.action",
 					cache:false,
 					type:"post",
-					data:{loginPassword:$("#newPass").val(),userRegId:${sessionScope.userLogin.userRegId}}, 
+					data:{loginPassword:"666666",userTel:"15210845247"}, 
 					dataType:"json", 
 					async:false,
 					success:function(data,status){
+						alert("修改成功");
 					},
 					error:function(){
 						alert("失败");
 					}
-				}); 
-					
-		});
+				});  */
+				/* $("#updatePwd").click(function(){
+				location.href="userPwdUpdate.action?loginPassword="+$("#newPass").val()+"&userRegId=1";
+			}); */
+				location.href="first.jsp";
+		
 	});
 </script>
 </head>
 
 <body>
-
+ <jsp:include page="header.jsp"></jsp:include>
   <div class="content">
      <div class="for-liucheng">
       <div class="liulist for-cur"></div>

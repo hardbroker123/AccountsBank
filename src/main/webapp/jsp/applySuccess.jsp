@@ -21,7 +21,7 @@
 
 <body>
 <!--头部-->
-        <jsp:include page="../header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
 <!--头部-->
 <!--幻灯片-->
 <div class="banner banner_s"><img src="../../font/Assets/upload/banner_d.jpg" alt=""/></div>
@@ -139,7 +139,7 @@
     </form>
     </div>
 </div>
-        <jsp:include page="../footer.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"></jsp:include>
     <script>
         /*from1*/
     $(function(){

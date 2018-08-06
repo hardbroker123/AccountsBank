@@ -72,7 +72,7 @@
     <li><a href="">抵押贷款</a></li>
     </ul>
     </li>
-    <li><a href="<%=path%>jsp/loanApply/apply.jsp">申请方式</a></li>
+    <li><a href="<%=path%>jsp/apply.jsp">申请方式</a></li>
     <li><a href="<%=path%>jsp/case.jsp">成功案例</a></li>
     <li><a href="<%=path%>jsp/sense.jsp">贷款常识</a></li>
     <li><a href="<%=path%>jsp/news.jsp">新闻资讯</a></li>

@@ -22,7 +22,7 @@
 
 <body>
 <!--头部-->
-        <jsp:include page="../header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
         <jsp:useBean id="now" class="java.util.Date" scope="page"></jsp:useBean>
 
 <!--头部-->
@@ -180,7 +180,7 @@
 
     </div>
 </div>
-        <jsp:include page="../footer.jsp"></jsp:include>
+        <jsp:include page="footer.jsp"></jsp:include>
     <script>
         var current_fs, next_fs, previous_fs;
         var left, opacity, scale;

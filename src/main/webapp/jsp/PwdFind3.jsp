@@ -101,6 +101,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					return false;
 				}
 			});
+			
+				$("#updatePwd").click(function(){
+				location.href="userPwdUpdate.action?loginPassword="+$("#newPass").val()+"&userRegId=1";
+			});
    
    });
    </script>
@@ -113,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
-
+ <jsp:include page="header.jsp"></jsp:include>
   <div class="content">
    <div class="web-width">
      <div class="for-liucheng">
@@ -144,7 +148,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <dd><input type="password" id="againPass" name="againPass" /><span id="spanstyle"></span></dd>
         <div class="clears"></div>
        </dl> 
-       <div class="subtijiao"><input type="submit" value="提交" class="btn btn-primary"  /></div> 
+       <div class="subtijiao"><input type="submit" value="提交" class="btn btn-primary" id="updatePwd" /></div> 
       </form><!--forget-pwd/-->
    </div><!--web-width/-->
   </div><!--content/-->

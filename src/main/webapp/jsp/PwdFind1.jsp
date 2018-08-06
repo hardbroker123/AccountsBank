@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 
 <body>
- 
+  <jsp:include page="header.jsp"></jsp:include>
   <div class="content">
    <div class="web-width">
      <div class="for-liucheng">
